@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>김효민 — 휴양시설 운영/기획 포트폴리오</title>
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+::selection{background:#FEE500;color:#191919}
+body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;background:#FAF7F1;color:#191919;overflow-x:hidden}
+.mono{font-family:'JetBrains Mono',monospace}
+
+/* ===== nav ===== */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 32px;display:flex;justify-content:space-between;align-items:center;transition:all .3s ease}
+.nav.scrolled{background:rgba(250,247,241,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.06)}
+.nav-links{display:flex;gap:24px;font-size:13px;font-weight:600}
+.nav-links a{color:#5C4A3A;text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:#191919}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .8s ease forwards}
+.fade-d1{animation:fadeUp .8s ease .1s forwards;opacity:0}
+.fade-d2{animation:fadeUp .8s ease .2s forwards;opacity:0}
+.fade-d3{animation:fadeUp .8s ease .3s forwards;opacity:0}
+
+/* ===== hero ===== */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:130px 32px 80px;max-width:980px;margin:0 auto;position:relative}
+.hero::before{content:"";position:absolute;top:100px;right:-60px;width:260px;height:260px;background:#FEE500;border-radius:50%;filter:blur(10px);opacity:.55;z-index:-1}
+.hero-tag{display:inline-block;font-size:13px;color:#191919;font-weight:800;letter-spacing:1.5px;margin-bottom:24px;background:#FEE500;padding:6px 14px;border-radius:100px;width:fit-content}
+.hero h1{font-size:clamp(30px,5.6vw,52px);font-weight:800;line-height:1.22;margin-bottom:22px;letter-spacing:-1px;color:#191919}
+.hero h1 span{color:#7A5C3E;border-bottom:6px solid #FEE500}
+.hero p{font-size:17px;line-height:1.75;color:#4A4038;max-width:600px;margin-bottom:48px}
+
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+.metric-card{padding:24px;background:#fff;border-radius:16px;border:1px solid #EFE7DA;transition:all .3s ease}
+.metric-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(60,42,33,.10)}
+.metric-num{font-size:30px;font-weight:800;color:#191919}
+.metric-label{font-size:13.5px;font-weight:700;margin-top:4px;color:#3C2A21}
+.metric-sub{font-size:12px;color:#9C8C7A;margin-top:2px}
+
+/* ===== sections ===== */
+.section{padding:84px 24px;max-width:980px;margin:0 auto}
+.section-dark{padding:84px 24px;background:#191919;color:#f5f2ea}
+.section-dark .inner{max-width:980px;margin:0 auto}
+.section-tag{display:inline-block;padding:4px 14px;border-radius:100px;font-size:12.5px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px}
+.section h2{font-size:32px;font-weight:800;margin-bottom:8px;letter-spacing:-.5px}
+.section-sub{color:#8A7A68;font-size:15.5px;margin-bottom:44px;line-height:1.6}
+
+/* fit badge */
+.fit-badge{display:inline-block;font-size:11px;font-weight:800;padding:3px 10px;border-radius:100px;letter-spacing:.5px;margin-left:8px;vertical-align:middle}
+.fit-high{background:#FEE500;color:#191919}
+.fit-mid{background:#EFE7DA;color:#5C4A3A}
+
+.channel-card{padding:30px 32px;background:#fff;border-radius:20px;border:1px solid #EFE7DA;margin-bottom:20px;transition:all .3s ease}
+.channel-card:hover{transform:translateY(-4px);box-shadow:0 14px 36px rgba(60,42,33,.12)}
+.ch-handle{font-size:13px;font-weight:800;color:#7A5C3E;letter-spacing:.5px}
+.ch-name{font-size:19px;font-weight:800;margin-top:4px;color:#191919}
+.ch-period{font-size:12.5px;color:#9C8C7A;margin-top:2px;font-weight:600}
+
+.ph-slot{width:100%;margin-top:16px;border-radius:12px;border:1.5px dashed #D9CBB8;background:#FBF8F2;color:#B2A18C;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;padding:34px 12px;text-align:center}
+
+.chart-box{width:100%;max-width:280px;margin-top:16px;padding:14px 16px 12px;background:#FBF8F2;border-radius:12px;border:1px solid #EFE7DA}
+.chart-title{font-size:10px;font-weight:800;color:#B2A18C;letter-spacing:1px;margin-bottom:8px;text-transform:uppercase}
+.chart-box svg{width:100%;height:auto;display:block}
+.chart-legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;font-size:10.5px;color:#7A6C5C;font-weight:600}
+.chart-legend span{display:inline-flex;align-items:center;gap:6px}
+.legend-dot{width:9px;height:9px;border-radius:3px;display:inline-block}
+
+.ch-block{margin-top:16px}
+.ch-label{font-size:11px;font-weight:800;color:#B2A18C;letter-spacing:1px;margin-bottom:5px}
+.ch-text{font-size:14px;color:#4A4038;line-height:1.65}
+.ch-result{font-size:14.5px;font-weight:700;color:#191919;line-height:1.65}
+.ch-result b{color:#7A5C3E}
+.ch-insight{font-size:13.5px;color:#7A6C5C;line-height:1.65}
+
+.num-highlight{font-weight:800;color:#191919;background:linear-gradient(180deg,transparent 65%,#FEE500 65%)}
+
+/* ===== automation-style icon grid (재구성: 역량) ===== */
+.auto-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.auto-card{padding:26px;background:#232323;border-radius:16px;border:1px solid #2E2E2E;transition:all .3s ease}
+.auto-card:hover{border-color:#FEE500}
+.auto-icon{font-size:26px;margin-bottom:12px}
+.auto-title{font-size:16.5px;font-weight:800;margin-bottom:4px;color:#fff}
+.auto-tool{font-size:11px;color:#FEE500;margin-bottom:12px;font-weight:700;letter-spacing:.5px}
+.auto-desc{font-size:13px;color:#B0A99C;line-height:1.65}
+
+/* ===== impact ===== */
+.impact-section{padding:84px 24px;background:linear-gradient(135deg,#191919 0%,#3C2A21 100%);color:#f5f2ea}
+.impact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.impact-card{padding:24px;background:rgba(255,255,255,.05);border-radius:16px;border:1px solid rgba(255,255,255,.1)}
+.impact-num{font-size:28px;font-weight:800;color:#FEE500}
+.impact-label{font-size:13.5px;font-weight:700;margin-top:4px}
+.impact-desc{font-size:12px;color:#B0A99C;margin-top:2px;line-height:1.5}
+
+/* ===== brief list (핏하지 않는 경험 간단히) ===== */
+.brief-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.brief-card{padding:20px 22px;background:#fff;border-radius:14px;border:1px solid #EFE7DA}
+.brief-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px}
+.brief-name{font-size:15px;font-weight:800;color:#191919}
+.brief-period{font-size:11.5px;color:#B2A18C;font-weight:600}
+.brief-desc{font-size:13px;color:#7A6C5C;margin-top:6px;line-height:1.6}
+
+/* ===== tools ===== */
+.tools-section{padding:56px 24px;background:#F1E9DB}
+.tools-wrap{max-width:980px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.tool-tag{padding:8px 18px;background:#fff;border-radius:100px;font-size:13px;font-weight:600;color:#4A4038;border:1px solid #E2D6C4}
+
+/* ===== timeline (경험 흐름) ===== */
+.timeline{position:relative;padding-left:32px}
+.timeline-line{position:absolute;left:11px;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,#FEE500,#7A5C3E);border-radius:2px}
+.timeline-item{position:relative;margin-bottom:26px}
+.timeline-dot{position:absolute;left:-32px;top:2px;width:22px;height:22px;border-radius:50%;background:#fff;border:3px solid #7A5C3E}
+.timeline-phase{font-size:12px;font-weight:800;color:#7A5C3E;letter-spacing:1px;margin-bottom:4px}
+.timeline-detail{font-size:14.5px;color:#4A4038;line-height:1.65}
+
+/* ===== footer ===== */
+.footer{padding:84px 24px;background:#191919;color:#f5f2ea;text-align:center}
+.footer h2{font-size:26px;font-weight:800;margin-bottom:12px}
+.footer h2 span{color:#FEE500}
+.footer p{color:#B0A99C;font-size:14.5px;margin-bottom:32px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.7}
+.footer-contact{font-size:13px;color:#8A7A68;margin-bottom:8px}
+.footer-built{font-size:12px;color:#555;margin-top:24px}
+
+@media(max-width:640px){
+  .nav-links{display:none}
+  .hero h1{font-size:27px}
+  .section h2,.footer h2{font-size:23px}
+  .metrics{grid-template-columns:repeat(2,1fr)}
+  .auto-grid{grid-template-columns:1fr}
+  .impact-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="mono" style="font-weight:800;font-size:15px;">김효민</div>
+  <div class="nav-links">
+    <a href="#experience">경험</a>
+    <a href="#capability">역량</a>
+    <a href="#impact">성과</a>
+    <a href="#etc">기타 경험</a>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-tag fade-up">RESORT OPERATIONS &amp; PLANNING ASSISTANT</div>
+  <h1 class="fade-d1"><span>관찰하는 습관</span>이<br>저의 시작입니다.</h1>
+  <p class="fade-d2">저는 새로운 아이디어보다 사람들의 행동을 먼저 봅니다. 현장에서 고객이 어디에 머무르고, 무엇을 불편해하는지 관찰하며 문제를 발견합니다. 그렇게 찾은 원인을 데이터와 고객의 목소리로 확인하고, 실제 운영에 적용할 수 있는 개선안으로 연결하는 것이 제가 가장 즐기는 일입니다.</p>
+
+  <div class="metrics fade-d3">
+    <div class="metric-card">
+      <div class="metric-num">336명 · 75개조</div>
+      <div class="metric-label">대상자 관리 &amp; CS 총괄</div>
+      <div class="metric-sub">BDAI 학회 조별활동 운영 · 학회원 문의 응대</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num">201건</div>
+      <div class="metric-label">이용 데이터 정비 &amp; 보고서 작성</div>
+      <div class="metric-sub">마이페어 인턴 · 박람회 데이터 정리</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num">현장 실사</div>
+      <div class="metric-label">신규 시설 발굴 &amp; 품질 점검</div>
+      <div class="metric-sub">한국관광공사 누리살핌단 활동</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num">숙박 서비스 개선 제안</div>
+      <div class="metric-label">정책 리서치</div>
+      <div class="metric-sub">에어비앤비 아카데미 정책팀 활동</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EXPERIENCE : 관찰 → 결과 ===== -->
+<section class="section" id="experience">
+  <div class="section-tag" style="background:#FEE500;color:#191919;">EXPERIENCE</div>
+  <h2>관찰과 결과로 본 현장 경험</h2>
+  <p class="section-sub">휴양시설 운영·기획 직무와 맞닿아 있는 경험을 중심으로 정리했습니다.</p>
+
+  <!-- 1. 에버랜드 마케터스 -->
+  <div class="channel-card">
+    <div class="ch-handle">삼성물산 리조트부문 · 에버랜드 마케터스 9기<span class="fit-badge fit-high">직무 최적합</span></div>
+    <div class="ch-name">테마파크 콘텐츠 기획 &amp; 시즌 집객 전략</div>
+    <div class="ch-period">2026.01 ~ 2026.10 (진행 중)</div>
+
+    <div class="ch-block">
+      <div class="ch-label">관찰</div>
+      <div class="ch-text">여름철 방문객이 낮 시간대 콘텐츠에만 머물다 이른 시간에 이탈하는 흐름을 관찰했고, 계절성과 야간 콘텐츠를 결합하면 체류시간과 재방문 의사를 함께 끌어올릴 수 있겠다고 판단했습니다.</div>
+    </div>
+    <div class="ch-block">
+      <div class="ch-label">실행 &amp; 결과</div>
+      <div class="ch-result">F&amp;B·MD·포토존·야외존을 아우르는 <span class="num-highlight">월별 시즌 컨셉</span>을 기획하고, 캐리비안베이 성수기 집객을 위해 <span class="num-highlight">약 1.5억원(제작비·매체비 포함)</span> 규모의 2030 타겟 커뮤니케이션 전략을 수립했습니다. 원숭이 IP 콜라보 리서치 및 SNS 콘텐츠 전략도 함께 제안했습니다.</div>
+    </div>
+    <div class="ch-block">
+      <div class="ch-label">배운 것</div>
+      <div class="ch-insight">오프라인 리조트·테마파크는 타겟이 넓고 뾰족하지 않기 때문에, 콘텐츠 하나보다 시즌 전체를 관통하는 IMC(통합 마케팅 커뮤니케이션) 설계가 더 중요하다는 것을 배웠습니다.</div>
+    </div>
+  </div>
+
+  <!-- 2. 관광서비스 누리살핌단 -->
+  <div class="channel-card">
+    <div class="ch-handle">한국관광공사 · 관광서비스 누리살핌단(모니터링단)<span class="fit-badge fit-high">직무 최적합</span></div>
+    <div class="ch-name">숙박·관광시설 현장 품질 점검</div>
+    <div class="ch-period">2026.06 ~ 2026.12 · 강원 제6권역</div>
+
+    <div class="chart-box">
+      <div class="chart-title">현장 점검 항목 5개 영역</div>
+      <svg viewBox="0 0 320 110" xmlns="http://www.w3.org/2000/svg">
+        <g font-family="Pretendard, sans-serif">
+          <circle cx="7" cy="9" r="6" fill="#7A5C3E"/><text x="7" y="12" text-anchor="middle" font-size="7" fill="#fff" font-weight="700">✓</text>
+          <text x="19" y="12" font-size="10" fill="#191919" font-weight="700">접근성</text>
+          <rect x="110" y="5" width="200" height="8" rx="4" fill="#FEE500"/>
+
+          <circle cx="7" cy="32" r="6" fill="#7A5C3E"/><text x="7" y="35" text-anchor="middle" font-size="7" fill="#fff" font-weight="700">✓</text>
+          <text x="19" y="35" font-size="10" fill="#191919" font-weight="700">안내체계</text>
+          <rect x="110" y="28" width="200" height="8" rx="4" fill="#FEE500"/>
+
+          <circle cx="7" cy="55" r="6" fill="#7A5C3E"/><text x="7" y="58" text-anchor="middle" font-size="7" fill="#fff" font-weight="700">✓</text>
+          <text x="19" y="58" font-size="10" fill="#191919" font-weight="700">청결도</text>
+          <rect x="110" y="51" width="200" height="8" rx="4" fill="#FEE500"/>
+
+          <circle cx="7" cy="78" r="6" fill="#7A5C3E"/><text x="7" y="81" text-anchor="middle" font-size="7" fill="#fff" font-weight="700">✓</text>
+          <text x="19" y="81" font-size="10" fill="#191919" font-weight="700">안전관리</text>
+          <rect x="110" y="74" width="200" height="8" rx="4" fill="#FEE500"/>
+
+          <circle cx="7" cy="101" r="6" fill="#7A5C3E"/><text x="7" y="104" text-anchor="middle" font-size="7" fill="#fff" font-weight="700">✓</text>
+          <text x="19" y="104" font-size="10" fill="#191919" font-weight="700">가격 투명성</text>
+          <rect x="110" y="97" width="200" height="8" rx="4" fill="#FEE500"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="ch-block">
+      <div class="ch-label">관찰</div>
+      <div class="ch-text">현장을 다니며 관광객이 오래 머물지 못하는 이유가 볼거리 부족보다 접근성·안내체계·외국어 서비스 같은 기본기의 공백에 있다는 것을 관찰했습니다.</div>
+    </div>
+    <div class="ch-block">
+      <div class="ch-label">실행 &amp; 결과</div>
+      <div class="ch-result">관광지·전통시장·숙박시설·음식점을 <span class="num-highlight">직접 방문해 접근성, 안내체계, 청결도, 안전관리, 가격 투명성</span> 등을 항목별로 평가하고, 시설별 개선 의견을 리포트로 제출했습니다.</div>
+    </div>
+    <div class="ch-block">
+      <div class="ch-label">배운 것</div>
+      <div class="ch-insight">체류 콘텐츠 부족과 외국인 대상 서비스 미비가 실제 현장의 반복적인 공백이라는 것을 확인했고, 이는 휴양시설 운영에서 우선순위를 정하는 기준이 되었습니다.</div>
+    </div>
+  </div>
+
+  <!-- 3. BDAI 조별활동 -->
+  <div class="channel-card">
+    <div class="ch-handle">B.D.A.I AI빅데이터분석학회 · 서벤트팀(조별활동 운영)<span class="fit-badge fit-high">직무 최적합</span></div>
+    <div class="ch-name">336명 · 75개조 대규모 운영 리딩</div>
+    <div class="ch-period">2025.09 ~ 2026.02</div>
+
+    <div class="chart-box">
+      <div class="chart-title">학회원 만족도(NPS) 변화</div>
+      <svg viewBox="0 0 220 100" xmlns="http://www.w3.org/2000/svg">
+        <rect x="30" y="38" width="34" height="50" rx="3" fill="#EFE7DA"/>
+        <rect x="110" y="31" width="34" height="57" rx="3" fill="#FEE500"/>
+        <text x="47" y="97" text-anchor="middle" font-family="Pretendard, sans-serif" font-size="9.5" font-weight="700" fill="#7A6C5C">개선 전</text>
+        <text x="127" y="97" text-anchor="middle" font-family="Pretendard, sans-serif" font-size="9.5" font-weight="700" fill="#191919">개선 후</text>
+        <text x="185" y="20" text-anchor="middle" font-family="Pretendard, sans-serif" font-size="15" font-weight="800" fill="#3C2A21">+13%p</text>
+      </svg>
+    </div>
+
+    <div class="ch-block">
+      <div class="ch-label">관찰</div>
+      <div class="ch-text">만족도 조사와 학회원들의 반응을 살펴보니, 인증 절차가 번거로워 중도 이탈이 생기고 있다는 것을 관찰했습니다. 절차를 단순화하고 월별 활동 키워드를 제시하면 참여를 유지할 수 있겠다고 판단했습니다.</div>
+    </div>
+    <div class="ch-block">
+      <div class="ch-label">실행 &amp; 결과</div>
+      <div class="ch-result">인증 채점 절차를 단순화하고 자동화 함수가 포함된 엑셀 관리 시트를 새로 제작했습니다. 무단이탈 기준, 조편성 전 추가모집 기간 등 운영 규칙을 정비한 결과 <span class="num-highlight">최종 만족도(NPS) 13%p 상승</span>을 이끌어냈습니다.</div>
+    </div>
+    <div class="ch-block">
+      <div class="ch-label">배운 것</div>
+      <div class="ch-insight">운영관리팀과의 TF를 통해 동기부여, 업무 분배, 갈등 없는 의사소통 방식을 익혔고, 무엇보다 "내 마음대로 하지 않고 합의 후 진행"하는 원칙의 중요성을 체감했습니다.</div>
+    </div>
+  </div>
+
+  <!-- 4. BDAI AINATION 채용공모전 -->
+  <div class="channel-card">
+    <div class="ch-handle">B.D.A.I · AINATION 채용공모전 운영<span class="fit-badge fit-high">직무 최적합</span></div>
+    <div class="ch-name">KPI 기반 대형 행사 기획 &amp; 현장 대응</div>
+    <div class="ch-period">2025.09 ~ 2026.02</div>
+
+    <div class="chart-box">
+      <div class="chart-title">목표 대비 달성 결과</div>
+      <svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+        <g font-family="Pretendard, sans-serif">
+          <!-- 협력 학회 12→16 -->
+          <rect x="20" y="66" width="20" height="44" rx="2" fill="#E2D6C4"/>
+          <rect x="44" y="52" width="20" height="58" rx="2" fill="#3C2A21"/>
+          <text x="30" y="61" text-anchor="middle" font-size="9" font-weight="700" fill="#7A6C5C">12</text>
+          <text x="54" y="47" text-anchor="middle" font-size="9" font-weight="800" fill="#191919">16</text>
+          <text x="42" y="118" text-anchor="middle" font-size="9.5" font-weight="700" fill="#4A4038">협력 학회</text>
+
+          <!-- 모집 팀 30→48 -->
+          <rect x="120" y="73" width="20" height="37" rx="2" fill="#E2D6C4"/>
+          <rect x="144" y="52" width="20" height="58" rx="2" fill="#3C2A21"/>
+          <text x="130" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#7A6C5C">30</text>
+          <text x="154" y="47" text-anchor="middle" font-size="9" font-weight="800" fill="#191919">48</text>
+          <text x="142" y="118" text-anchor="middle" font-size="9.5" font-weight="700" fill="#4A4038">1차 모집 팀</text>
+
+          <!-- NPS 30→50 -->
+          <rect x="220" y="75" width="20" height="35" rx="2" fill="#E2D6C4"/>
+          <rect x="244" y="52" width="20" height="58" rx="2" fill="#3C2A21"/>
+          <text x="230" y="70" text-anchor="middle" font-size="9" font-weight="700" fill="#7A6C5C">30</text>
+          <text x="254" y="47" text-anchor="middle" font-size="9" font-weight="800" fill="#191919">50</text>
+          <text x="242" y="118" text-anchor="middle" font-size="9.5" font-weight="700" fill="#4A4038">NPS</text>
+        </g>
+      </svg>
+      <div class="chart-legend">
+        <span><span class="legend-dot" style="background:#E2D6C4"></span>목표</span>
+        <span><span class="legend-dot" style="background:#3C2A21"></span>달성</span>
+        <span>· 카드뉴스 첫날 조회수 19k</span>
+      </div>
+    </div>
+
+    <div class="ch-block">
+      <div class="ch-label">관찰</div>
+      <div class="ch-text">전년도 운영 기록과 참가자 피드백을 살펴보니 모집과 홍보가 순차적으로 진행돼 시간이 부족했던 것을 관찰했고, 이를 동시에 진행하면 규모를 키울 수 있겠다고 판단했습니다.</div>
+    </div>
+    <div class="ch-block">
+      <div class="ch-label">실행 &amp; 결과</div>
+      <div class="ch-result">협력 학회 <span class="num-highlight">12개 목표 → 16개 달성</span>, 1차 모집 <span class="num-highlight">30팀 목표 → 48팀 달성</span>, 만족도 <span class="num-highlight">NPS 30점 목표 → 50점 달성</span>. 신규 시도한 인스타그램 후킹 카드뉴스는 <span class="num-highlight">업로드 하루 만에 조회수 19k</span>를 기록했습니다.</div>
+    </div>
+    <div class="ch-block">
+      <div class="ch-label">배운 것</div>
+      <div class="ch-insight">행사 당일 스탭 불참, 강연자 불참 같은 변수에도 QNA 패널토론으로 형식을 바꿔 침착하게 대응했습니다. 발주 이력 관리와 인수인계 문서화가 현장 리스크를 줄이는 핵심이라는 것을 배웠습니다.</div>
+    </div>
+  </div>
+
+  <!-- 5. UCF 전공연수 -->
+  <div class="channel-card">
+    <div class="ch-handle">경희대 호텔관광대학 전공연수 · University of Central Florida<span class="fit-badge fit-high">직무 최적합</span></div>
+    <div class="ch-name">Theme Park &amp; Attractions Management</div>
+    <div class="ch-period">2025.07</div>
+
+    <div class="ch-block">
+      <div class="ch-label">관찰 &amp; 실행</div>
+      <div class="ch-text">테마파크 강의 수강과 함께 올랜도 유니버셜 스튜디오·디즈니월드, 메리어트 리조트를 직접 방문해 운영 디테일을 관찰했습니다.</div>
+    </div>
+    <div class="ch-block">
+      <div class="ch-label">결과</div>
+      <div class="ch-result">메리어트 리조트 GM과의 미팅을 통해 호텔 운영 체계를 이해했고, 테마파크는 미각·후각·청각·시각·촉각을 모두 고려한 디테일 설계가 핵심이라는 인사이트를 정리했습니다.</div>
+    </div>
+    <div class="ch-block">
+      <div class="ch-label">배운 것</div>
+      <div class="ch-insight">서비스의 본질은 고객에게 무엇을 제공할지에 대한 사명감이며, 그 책임을 즐기는 태도가 현장 만족도를 만든다는 것을 배웠습니다.</div>
+    </div>
+  </div>
+
+  <!-- 6. 한국공항공사 -->
+  <div class="channel-card">
+    <div class="ch-handle">한국공항공사 · 일경험 프로젝트<span class="fit-badge fit-high">직무 최적합</span></div>
+    <div class="ch-name">ESG 홍보 디자인 프로젝트 팀장</div>
+    <div class="ch-period">2026.06 ~ 2026.08</div>
+
+    <div class="ch-block">
+      <div class="ch-label">관찰 &amp; 실행</div>
+      <div class="ch-text">초기 실무진과의 소통에서 목적과 예산 기준이 불명확하면 지연이 발생하는 것을 관찰했고, 팀 리더로서 예산 관리·실무진 소통·제작 일정을 총괄했습니다.</div>
+    </div>
+    <div class="ch-block">
+      <div class="ch-label">결과</div>
+      <div class="ch-result">Figma로 카드뉴스를 제작하고, Claude·Magnific AI 등 생성형 AI 툴을 활용해 <span class="num-highlight">지역상생협력부 맞춤 아이콘 30종</span>을 추가 제작했습니다.</div>
+    </div>
+    <div class="ch-block">
+      <div class="ch-label">배운 것</div>
+      <div class="ch-insight">의뢰인의 니즈와 페인포인트를 먼저 파악한 뒤 목적을 설계하는 순서, 그리고 예산 집행을 위한 꼼꼼함이 실무에서 얼마나 중요한지 체감했습니다.</div>
+    </div>
+  </div>
+
+  <!-- 7. 에어비앤비 아카데미 -->
+  <div class="channel-card">
+    <div class="ch-handle">에어비앤비(Airbnb) 아카데미 5기 · 정책팀 리더<span class="fit-badge fit-mid">참고 경험</span></div>
+    <div class="ch-name">숙박 서비스 정책 &amp; 개선 제안</div>
+    <div class="ch-period">2025.03 ~ 2025.06</div>
+
+    <div class="ch-block">
+      <div class="ch-label">실행 &amp; 결과</div>
+      <div class="ch-result">번역 on/off, 신고 버튼 UI 개선 등 서비스 개선 아이디어를 제안하고, 국내 공유숙박 정책을 학습해 이해관계자 설득을 위한 정책 마케팅 방안을 기획했습니다.</div>
+    </div>
+    <div class="ch-block">
+      <div class="ch-label">배운 것</div>
+      <div class="ch-insight">"어디에서든 내 집처럼"이라는 숙박업의 핵심 가치와, 국내 관광 정책에 대한 이해를 함께 쌓았습니다.</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ===== CAPABILITY (다크 섹션) ===== -->
+<section class="section-dark" id="capability">
+  <div class="inner">
+    <div class="section-tag" style="background:rgba(254,229,0,.15);color:#FEE500;">CAPABILITY</div>
+    <h2 style="color:#fff;">현장에서 검증한 역량</h2>
+    <p class="section-sub" style="color:#B0A99C;">운영·기획 어시스턴트 직무에 바로 적용 가능한 4가지 역량입니다.</p>
+
+    <div class="auto-grid">
+      <div class="auto-card">
+        <div class="auto-icon">📋</div>
+        <div class="auto-title">대규모 운영 관리</div>
+        <div class="auto-tool">336명 · 75개조 운영 경험</div>
+        <div class="auto-desc">인증·이탈 기준 등 운영 규칙을 설계하고 엑셀 자동화 시트로 반복 업무 시간을 줄였습니다.</div>
+      </div>
+      <div class="auto-card">
+        <div class="auto-icon">🚨</div>
+        <div class="auto-title">현장 변수 대응</div>
+        <div class="auto-tool">행사 당일 스탭·강연자 불참 대응</div>
+        <div class="auto-desc">문제가 생기면 대체 인력 투입, 진행 방식 변경 등으로 침착하게 리스크를 관리합니다.</div>
+      </div>
+      <div class="auto-card">
+        <div class="auto-icon">🔍</div>
+        <div class="auto-title">현장 품질 점검</div>
+        <div class="auto-tool">숙박·관광시설 실사 평가</div>
+        <div class="auto-desc">접근성, 안내체계, 청결도, 가격 투명성 등 다항목 기준으로 시설을 점검하고 개선안을 제안합니다.</div>
+      </div>
+      <div class="auto-card">
+        <div class="auto-icon">🎯</div>
+        <div class="auto-title">시즌 콘텐츠 기획</div>
+        <div class="auto-tool">테마파크 F&amp;B·MD·포토존 기획</div>
+        <div class="auto-desc">계절성과 타겟을 고려한 월별 컨셉을 설계하고, 예산 규모를 고려한 집객 전략을 수립합니다.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== IMPACT ===== -->
+<section class="impact-section" id="impact">
+  <div style="max-width:980px;margin:0 auto;">
+    <div class="section-tag" style="background:rgba(254,229,0,.18);color:#FEE500;">IMPACT</div>
+    <h2 style="color:#fff;">핵심 성과 요약</h2>
+    <p class="section-sub" style="color:#B0A99C;margin-bottom:40px;">숫자로 증명한 운영·기획 결과입니다.</p>
+
+    <div class="impact-grid">
+      <div class="impact-card">
+        <div class="impact-num">+13%p</div>
+        <div class="impact-label">만족도(NPS) 상승</div>
+        <div class="impact-desc">BDAI 조별활동 운영 개선</div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-num">16개</div>
+        <div class="impact-label">협력 학회 (목표 12개)</div>
+        <div class="impact-desc">AINATION 채용공모전</div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-num">48팀</div>
+        <div class="impact-label">1차 모집 (목표 30팀)</div>
+        <div class="impact-desc">AINATION 채용공모전</div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-num">19k</div>
+        <div class="impact-label">카드뉴스 하루 조회수</div>
+        <div class="impact-desc">신규 홍보 포맷 실험</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 경험 흐름 타임라인 ===== -->
+<section class="section">
+  <div class="section-tag" style="background:#EFE7DA;color:#5C4A3A;">JOURNEY</div>
+  <h2>경험은 달랐지만, 관심은 하나였습니다.</h2>
+  <p class="section-sub">컨벤션에서 시작한 경험은 마케팅, 관광·숙박, 테마파크 운영으로 이어졌습니다. 결국 제가 계속 궁금했던 것은 사람들이 더 즐겁고 편안하게 머무는 공간은 어떻게 만들어지는가였습니다.</p>
+
+  <div class="timeline">
+    <div class="timeline-line"></div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-phase">2022 · 시작</div>
+      <div class="timeline-detail">컨벤션경영학과 학생회 기획부원으로 행사 기획에 입문했습니다.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-phase">2023~2024 · 확장</div>
+      <div class="timeline-detail">학회 마케팅팀장, 오스트리아 교환학생을 거치며 해외 이벤트·숙박 산업으로 시야를 넓혔습니다.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-phase">2025 · 도메인 확장</div>
+      <div class="timeline-detail">에어비앤비 아카데미, UCF 테마파크 연수를 통해 숙박·관광 산업 전문성을 쌓았습니다.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-phase">2026 · 현장 실행</div>
+      <div class="timeline-detail">에버랜드 마케터스, 관광서비스 모니터링단으로 리조트·시설 운영을 실제로 기획하고 점검하고 있습니다.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 기타 경험 (간단히) ===== -->
+<section class="section" id="etc">
+  <div class="section-tag" style="background:#EFE7DA;color:#5C4A3A;">ETC</div>
+  <h2>그 외 경험</h2>
+  <p class="section-sub">직무와 직접적인 연관은 적지만, 함께 쌓아온 실무 경험입니다.</p>
+
+  <div class="brief-list">
+    <div class="brief-card">
+      <div class="brief-head">
+        <div class="brief-name">마이페어 인턴십</div>
+        <div class="brief-period">2025.03~2025.06</div>
+      </div>
+      <div class="brief-desc">해외전시 플랫폼 스타트업에서 데이터 마케터로 근무, 박람회 데이터 201개 정비 및 GA 기반 성과 분석 수행.</div>
+    </div>
+    <div class="brief-card">
+      <div class="brief-head">
+        <div class="brief-name">경희컨벤션학회 마케팅팀장</div>
+        <div class="brief-period">2023.02~2024.02</div>
+      </div>
+      <div class="brief-desc">학회 콘텐츠·디자인 제작 및 여수 MICE 네트워킹 포럼 총무로 행사 기획 실무 경험.</div>
+    </div>
+    <div class="brief-card">
+      <div class="brief-head">
+        <div class="brief-name">MICE 박람회 운영요원</div>
+        <div class="brief-period">2022~2023</div>
+      </div>
+      <div class="brief-desc">삼성 갤럭시 언팩, AWS Industry Week 등 대형 행사 현장 운영요원으로 다수 참여.</div>
+    </div>
+    <div class="brief-card">
+      <div class="brief-head">
+        <div class="brief-name">스타벅스코리아 바리스타</div>
+        <div class="brief-period">2024.09~2025.02</div>
+      </div>
+      <div class="brief-desc">대치점에서 근무하며 서비스업 현장 응대 경험 축적.</div>
+    </div>
+    <div class="brief-card">
+      <div class="brief-head">
+        <div class="brief-name">FH Kufstein 교환학생</div>
+        <div class="brief-period">2024.02~2024.08</div>
+      </div>
+      <div class="brief-desc">오스트리아 대학에서 이벤트경영론 등 수강, 유럽 비즈니스 이벤트 산업 이해.</div>
+    </div>
+    <div class="brief-card">
+      <div class="brief-head">
+        <div class="brief-name">무역협회 전시 연구</div>
+        <div class="brief-period">2025.09~2025.11</div>
+      </div>
+      <div class="brief-desc">코엑스 신규 전시 개발전략 연구조사, 국내외 전시회 비교분석 수행.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TOOLS ===== -->
+<section class="tools-section">
+  <div class="tools-wrap">
+    <span class="tool-tag">Mac</span>
+    <span class="tool-tag">MS-Office</span>
+    <span class="tool-tag">Keynote</span>
+    <span class="tool-tag">Excel (함수·자동화)</span>
+    <span class="tool-tag">Figma</span>
+    <span class="tool-tag">Google Analytics</span>
+    <span class="tool-tag">Notion</span>
+    <span class="tool-tag">ADsP</span>
+    <span class="tool-tag">컴퓨터활용능력 2급</span>
+    <span class="tool-tag">OPIc IH</span>
+    <span class="tool-tag">AI 툴 (Claude·Magnific AI)</span>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <h2><span>관찰은 끝까지 해야</span> 의미가 있다고 생각합니다.</h2>
+  <p>저는 사람들이 어디에 오래 머무는지, 어디에서 불편을 느끼는지 관찰하는 것을 좋아합니다. 현장에서 얻은 인사이트를 데이터로 검증하고 운영 개선으로 연결하며 더 좋은 경험을 만드는 일을 즐깁니다.</p>
+  <div class="footer-contact">김효민 · Kim Hyomin</div>
+  <div class="footer-built">Built with Claude</div>
+</footer>
+
+<script>
+window.addEventListener('scroll', function() {
+  var nav = document.getElementById('nav');
+  if (window.scrollY > 50) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+});
+</script>
+
+</body>
+</html>
